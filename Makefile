@@ -1,3 +1,6 @@
+migratefile:
+	migrate create -ext sql -dir db/migration -seq init_schema
+
 createdb:
 	docker exec -it some-postgres createdb --username=root --owner=root simple_bank
 
@@ -9,6 +12,12 @@ migrateup:
 
 migratedown:
 	migrate -path db/migration -database "postgres://root:password@localhost/simple_bank?sslmode=disable" -verbose down
+
+dirtystatus:
+	migrate -path db/migration -database "postgres://root:password@localhost/simple_bank?sslmode=disable" -verbose status
+
+# dirtyfix:
+# 	migrate -path db/migration -database "postgres://root:password@localhost/simple_bank?sslmode=disable" -verbose force 
 
 sqlc:
 	sqlc generate

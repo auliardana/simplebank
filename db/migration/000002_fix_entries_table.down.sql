@@ -1,0 +1,2 @@
+ALTER TABLE "entries" ALTER COLUMN "account_id" DROP NOT NULL;
+ALTER TABLE "entries" ALTER COLUMN "created_at" DROP DEFAULT;
