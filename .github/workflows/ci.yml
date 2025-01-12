@@ -16,21 +16,18 @@ jobs:
 
     services:
       postgres:
-        # Docker Hub image
         image: postgres:17.2
-        # Provide the password for postgres
         env:
           POSTGRES_USER: root
           POSTGRES_PASSWORD: password
           POSTGRES_DB: simple_bank
-        # Set health checks to wait until postgres has started
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-
 
     steps:
     - uses: actions/checkout@v4
@@ -43,14 +40,11 @@ jobs:
     - name: install golang migrate-cli
       run: |
         curl -L https://github.com/golang-migrate/migrate/releases/download/v4.18.1/migrate.linux-amd64.tar.gz | tar xvz
-        sudo mv migrate.linux-amd64 /usr/bin/
+        sudo mv migrate /usr/bin/
         which migrate
-
 
     - name: Run migrations
       run: make migrateup
-
-
 
     - name: Build
       run: go build -v ./...
