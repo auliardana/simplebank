@@ -139,9 +139,11 @@ func TestCreateAccountAPI(t *testing.T) {
 			},
 		},
 		{
-			name:       "InvalidCurrency",
-			body:       fmt.Sprintf(`{"owner": "%s", "currency": "invalid"}`, account.Owner),
-			buildStubs: func(store *mockdb.MockStore) {},
+			name: "InvalidCurrency",
+			body: fmt.Sprintf(`{"owner": "%s", "currency": "invalid"}`, account.Owner),
+			buildStubs: func(store *mockdb.MockStore) {
+				store.EXPECT().CreateAccount(gomock.Any(), gomock.Any()).Times(0)
+			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
 			},
