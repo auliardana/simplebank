@@ -1,9 +1,3 @@
-
-CREATE TYPE "Currency" AS ENUM (
-  'USD',
-  'EUR'
-);
-
 CREATE TABLE "accounts" (
   "id" bigserial PRIMARY KEY,
   "owner" varchar NOT NULL,
