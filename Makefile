@@ -1,5 +1,5 @@
 postgres:
-	docker run --name some-postgres -e POSTGRES_PASSWORD=password -e POSTGRES_USER=root -p 5432:5432 -d postgres
+	docker run --name some-postgres --network bank-network -e POSTGRES_PASSWORD=password -e POSTGRES_USER=root -p 5432:5432 -d postgres
 
 mysql:
 	docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql
